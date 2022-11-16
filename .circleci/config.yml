@@ -53,6 +53,9 @@ jobs:
       - run:
           command: npx playwright install
           name: installing playwright
+      - run:
+          command: yarn start
+          name: Building apps
   test:
     executor:
       name: node/default
@@ -61,6 +64,9 @@ jobs:
       - checkout
       - node/install-packages:
           pkg-manager: yarn
+      - run:
+          command: yarn lint
+          name: Runnging linter
       - run:
           command: yarn run test
           name: Run YARN tests
