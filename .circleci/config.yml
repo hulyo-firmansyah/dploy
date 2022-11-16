@@ -15,15 +15,18 @@ jobs:
       - checkout
       # look for existing cache and restore if found
       - restore_cache:
-          key: v1-deps-{{ checksum "yarn.lock" }}
+          key: yarn-packages-v1-{{ .Branch }}-{{ checksum "yarn.lock" }}
       - run:
           name: Installing dependency
           command: yarn install
-      # save any changes to the cache
-      - save_cache:
-          key: v1-deps-{{ checksum "yarn.lock" }}
-          paths: 
-            - node_modules
+      - run:
+          name: Building apps
+          command: yarn build
+      # Save workspace for next step
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - "project"
   test1:
     executor:
       name: node/default
@@ -32,20 +35,18 @@ jobs:
       - image: mcr.microsoft.com/playwright:v1.27.1-focal
     steps:
       - checkout
-      - restore_cache:
-          key: v1-deps-{{ checksum "yarn.lock" }}
-      - run:
-          name: Building apps
-          command: yarn build
+      # Get workspace from previous step
+      - attach_workspace:
+          at: ~/
       - run:
           name: Run tests
           command: yarn test
       # save any changes to the cache
       - save_cache:
-          key: v1-deps-{{ checksum "yarn.lock" }}
-          paths: 
-            - node_modules
-            - .next
+          paths:
+            - ./node_modules
+            - ./.next/cache
+          key: yarn-packages-v1-{{ .Branch }}-{{ checksum "yarn.lock" }}
   test:
     executor:
       name: node/default
@@ -95,10 +96,12 @@ workflows:
       - test2:
           requires:
             - test1
+      # ask for approval
       - hold:
           type: approval
           requires:
             - test2
       - deploy:
+          # wait for approval
           requires:
             - hold
