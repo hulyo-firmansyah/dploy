@@ -39,8 +39,17 @@ jobs:
       - restore_cache:
           key: v1-deps-{{ checksum "yarn.lock" }}
       - run:
+          name: Building apps
+          command: yarn build
+      - run:
           name: Run tests
           command: yarn test
+      # save any changes to the cache
+      - save_cache:
+          key: v1-deps-{{ checksum "yarn.lock" }}
+          paths: 
+            - node_modules
+            - .next
   test:
     executor:
       name: node/default
