@@ -35,7 +35,7 @@ jobs:
     docker:
       - image: mcr.microsoft.com/playwright:v1.27.1-focal
     steps:
-      # - checkout
+      - checkout
       - restore_cache:
           key: v1-deps-{{ checksum "yarn.lock" }}
       - run:
