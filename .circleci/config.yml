@@ -28,9 +28,6 @@ jobs:
       - image: mcr.microsoft.com/playwright:v1.27.1-focal
     steps:
       - checkout
-      # - run:
-      #     name: Download dependency
-      #     command: npm ci
       - run:
           name: Installing dependency
           command: yarn install
