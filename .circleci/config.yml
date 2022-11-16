@@ -41,6 +41,18 @@ version: 2.1
 orbs:
   node: circleci/node@5.0.3
 jobs:
+  setup:
+    executor:
+      name: node/default
+      tag: '14.17.0'
+    steps:
+      - checkout
+      - run:
+          command: yarn install
+          name: Installing deps
+      - run:
+          command: npx playwright install
+          name: installing playwright
   test:
     executor:
       name: node/default
@@ -52,6 +64,7 @@ jobs:
       - run:
           command: yarn run test
           name: Run YARN tests
+
 workflows:
   test_my_app:
     jobs:
