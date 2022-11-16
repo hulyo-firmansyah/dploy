@@ -15,15 +15,16 @@ jobs:
       - checkout
       # look for existing cache and restore if found
       - restore_cache:
-          key: v1-deps-{{ checksum "package.json" }}
+          key: v1-deps-{{ checksum "yarn.lock" }}
       - run:
           name: Installing dependency
           command: yarn install
       # save any changes to the cache
       - save_cache:
-          key: v1-deps-{{ checksum "package.json" }}
+          key: v1-deps-{{ checksum "yarn.lock" }}
           paths: 
             - node_modules   
+            - ./.next/cache
       - run:
           name: Building apps
           command: yarn build
