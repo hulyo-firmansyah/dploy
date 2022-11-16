@@ -20,21 +20,15 @@ jobs:
           name: Install Dependencies
           command: yarn install
   e2e:
-    docker:
-      - image: mcr.microsoft.com/playwright:v1.26.0-focal
-    environment:
-      NODE_ENV: development
+    executor: pw-focal-development
     steps:
       - checkout
-      - attach_workspace:
-          at: ./
-      - run:
-          name: Install dependencies
-          command: npm install
       - run:
           name: Run playwright tests
           command: npx playwright test
-      - store_artifacts:
-          path: playwright-report
-      - store_artifacts:
-          path: e2e-results
+
+workflows:
+  my_custom_workflow:
+    jobs:
+      - build
+      - e2e
