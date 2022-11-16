@@ -19,15 +19,11 @@ jobs:
       - run:
           name: Installing dependency
           command: yarn install
-      - run:
-          name: Building apps
-          command: yarn build
       # save any changes to the cache
       - save_cache:
           key: v1-deps-{{ checksum "yarn.lock" }}
           paths: 
             - node_modules
-            - .next
   test1:
     executor:
       name: node/default
