@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test"
 
 test("Should navigate to Home", async ({ page }) => {
-	await page.goto("http://localhost:3000/")
+	await page.goto("./")
 
 	await expect(page).toHaveTitle(/Create Next App/gi)
 
