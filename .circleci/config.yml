@@ -90,6 +90,8 @@ workflows:
             - test1
       - hold:
           type: approval
+          requires:
+            - test2
       - deploy:
           requires:
             - hold
