@@ -35,6 +35,9 @@ jobs:
           name: Installing dependency
           command: yarn install
       - run:
+          name: Building apps
+          command: yarn build
+      - run:
           name: Run tests
           command: yarn test
       - store_test_results:
