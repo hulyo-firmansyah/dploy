@@ -22,15 +22,11 @@ jobs:
       - run:
           name: Building apps
           command: yarn build
+      # Save workspace for next step
       - persist_to_workspace:
           root: ~/
           paths:
             - "project"
-      # save any changes to the cache
-      # - save_cache:
-      #     key: v1-deps-{{ checksum "yarn.lock" }}
-      #     paths: 
-      #       - node_modules
   test1:
     executor:
       name: node/default
@@ -39,19 +35,13 @@ jobs:
       - image: mcr.microsoft.com/playwright:v1.27.1-focal
     steps:
       - checkout
+      # Get workspace from previous step
       - attach_workspace:
           at: ~/
-      # - restore_cache:
-      #     key: v1-deps-{{ checksum "yarn.lock" }}
       - run:
           name: Run tests
           command: yarn test
       # save any changes to the cache
-      # - save_cache:
-      #     key: v1-deps-{{ checksum "yarn.lock" }}
-      #     paths: 
-      #       - node_modules
-      #       - .next
       - save_cache:
           paths:
             - ./node_modules
@@ -106,10 +96,12 @@ workflows:
       - test2:
           requires:
             - test1
+      # ask for approval
       - hold:
           type: approval
           requires:
             - test2
       - deploy:
+          # wait for approval
           requires:
             - hold
