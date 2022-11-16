@@ -27,7 +27,7 @@ jobs:
           key: v1-deps-{{ checksum "yarn.lock" }}
           paths: 
             - node_modules   
-            - ./.next/cache
+            - ./.next
   test1:
     executor:
       name: node/default
