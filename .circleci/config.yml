@@ -79,7 +79,7 @@ jobs:
       - run: echo "Deployed"
 
 workflows:
-  build_and_test:
+  test_and_deploy:
     jobs:
       - build
       - test1:
