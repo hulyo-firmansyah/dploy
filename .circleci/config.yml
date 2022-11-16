@@ -1,45 +1,9 @@
 # # Use the latest 2.1 version of CircleCI pipeline process engine.
 # # See: https://circleci.com/docs/2.0/configuration-reference
-# version: 2.1
-
-# executors:
-#   pw-focal-development:
-#     docker:
-#       - image: mcr.microsoft.com/playwright:v1.27.1-focal
-#     environment:
-#       NODE_ENV: development
-
-# jobs:
-#   setup:
-#     working_directory: ~/repo
-#     docker:
-#       - image: circleci/node:14.17.0
-#     steps:
-#       - checkout
-#       - node/install:
-#           install-yarn: true
-#           node-version: '14.17.0'
-#       - run: node --version
-#       # - run:
-#       #     name: Install Dependencies
-#       #     command: yarn install
-#   e2e:
-#     executor: pw-focal-development
-#     steps:
-#       - checkout
-#       - run:
-#           name: Run playwright tests
-#           command: npx playwright test
-
-# workflows:
-#   my_custom_workflow:
-#     jobs:
-#       - setup
-#       - e2e
-
 version: 2.1
 orbs:
   node: circleci/node@5.0.3
+
 jobs:
   setup:
     executor:
@@ -60,19 +24,23 @@ jobs:
     executor:
       name: node/default
       tag: '14.17.0'
+    docker:
+      - image: mcr.microsoft.com/playwright:v1.27.1-focal
     steps:
       - checkout
-      - node/install-packages:
-          pkg-manager: yarn
       - run:
-          command: yarn lint
-          name: Runnging linter
+          name: Download dependency
+          command: npm ci
       - run:
-          command: yarn run test
-          name: Run YARN tests
+          name: Installing dependency
+          command: yarn install
+      - run:
+          name: Run tests
+          command: yarn test
+      - store_test_results:
+          path: results.xml
 
 workflows:
   test_my_app:
     jobs:
       - setup
-      - test
