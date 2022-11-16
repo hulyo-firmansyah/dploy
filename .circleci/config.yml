@@ -5,21 +5,6 @@ orbs:
   node: circleci/node@5.0.3
 
 jobs:
-  setup:
-    executor:
-      name: node/default
-      tag: '14.17.0'
-    steps:
-      - checkout
-      - run:
-          command: yarn install
-          name: Installing deps
-      - run:
-          command: npx playwright install
-          name: installing playwright
-      - run:
-          command: yarn start
-          name: Building apps
   test:
     executor:
       name: node/default
@@ -28,9 +13,17 @@ jobs:
       - image: mcr.microsoft.com/playwright:v1.27.1-focal
     steps:
       - checkout
+      # look for existing cache and restore if found
+      - restore_cache:
+          key: v1-deps-{{ checksum "package.json" }}
       - run:
           name: Installing dependency
           command: yarn install
+      # save any changes to the cache
+      - save_cache:
+          key: v1-deps-{{ checksum "package.json" }}
+          paths: 
+            - node_modules   
       - run:
           name: Building apps
           command: yarn build
@@ -41,6 +34,6 @@ jobs:
           path: results.xml
 
 workflows:
-  test_my_app:
+  test_and_deploy:
     jobs:
       - test
