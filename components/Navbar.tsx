@@ -5,7 +5,10 @@ const Navbar = () => {
 		<nav className="flex justify-between py-5 px-4 lg:px-10">
 			<div>
 				<Link href={"/"}>
-					<a className="inline-block cursor-pointer font-display text-xl font-bold tracking-tighter">
+					<a
+						className="inline-block cursor-pointer font-display text-xl font-bold tracking-tighter"
+						data-testid="logo-link"
+					>
 						DPloy.
 					</a>
 				</Link>

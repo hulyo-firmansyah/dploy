@@ -11,7 +11,10 @@ const Home: NextPage = () => {
 	return (
 		<div className="container mt-20">
 			<main className="flex justify-center lg:mt-20">
-				<div className="cursor-default text-center font-display text-6xl font-bold lg:text-7xl">
+				<div
+					className="cursor-default text-center font-display text-6xl font-bold lg:text-7xl"
+					data-testid="banner-text"
+				>
 					<span className="block tracking-tighter drop-shadow-[0_10px_20px_rgba(255,255,255,0.5)] lg:inline">
 						Deploy app faster
 					</span>
