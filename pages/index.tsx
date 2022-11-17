@@ -1,9 +1,13 @@
 import type { NextPage } from "next"
-import Head from "next/head"
 import Image from "next/image"
-import { Fragment } from "react"
+import { useRouter } from "next/router"
 
 const Home: NextPage = () => {
+	/**
+	 * Router
+	 */
+	const router = useRouter()
+
 	return (
 		<div className="container mt-20">
 			<main className="flex justify-center lg:mt-20">
@@ -25,10 +29,20 @@ const Home: NextPage = () => {
 					<span className="text-cyan-400">Doloremque</span>.
 				</p>
 				<div className="mt-5 flex justify-center gap-6 lg:mt-6">
-					<button className="w-full rounded-md bg-cyan-500 p-3 text-sm font-semibold transition-all duration-150 ease-in hover:bg-cyan-400 hover:shadow-lg hover:shadow-cyan-400/50 md:w-32">
+					<button
+						className="w-full rounded-md bg-cyan-500 p-3 text-sm font-semibold transition-all duration-150 ease-in hover:bg-cyan-400 hover:shadow-lg hover:shadow-cyan-400/50 md:w-32"
+						onClick={() => {
+							router.push("/docs")
+						}}
+					>
 						Get Started
 					</button>
-					<button className="hidden items-center justify-center gap-3 rounded-md border border-x-0 border-b-0 border-t-slate-700 bg-slate-800 p-3 text-sm font-semibold text-slate-300 shadow-md transition-all duration-150 ease-in hover:bg-slate-700 md:flex md:w-32">
+					<button
+						className="hidden items-center justify-center gap-3 rounded-md border border-x-0 border-b-0 border-t-slate-700 bg-slate-800 p-3 text-sm font-semibold text-slate-300 shadow-md transition-all duration-150 ease-in hover:bg-slate-700 md:flex md:w-32"
+						onClick={() => {
+							router.push("/docs")
+						}}
+					>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							fill="none"
