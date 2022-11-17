@@ -1,22 +1,28 @@
-import Image from "next/image"
+import Link from "next/link"
 
 const Navbar = () => {
 	return (
 		<nav className="flex justify-between py-5 px-4 lg:px-10">
 			<div>
-				<div className="inline-block cursor-default font-display text-xl font-bold tracking-tighter">
-					DPloy.
-				</div>
+				<Link href={"/"}>
+					<a className="inline-block cursor-pointer font-display text-xl font-bold tracking-tighter">
+						DPloy.
+					</a>
+				</Link>
 			</div>
 			<div>
 				<ul className="flex divide-x divide-slate-700 text-sm font-semibold">
 					<li className="pr-6">
 						<ul className="flex gap-8">
 							<li className="transition-colors duration-150 ease-in hover:text-cyan-400">
-								<a href="#">Docs</a>
+								<Link href="/docs">
+									<a>Docs</a>
+								</Link>
 							</li>
 							<li className="transition-colors duration-150 ease-in hover:text-cyan-400">
-								<a href="#">Blogs</a>
+								<Link href="/blog">
+									<a>Blog</a>
+								</Link>
 							</li>
 						</ul>
 					</li>
