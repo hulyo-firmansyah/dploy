@@ -4,24 +4,6 @@ const config: PlaywrightTestConfig = {
 	fullyParallel: false,
 	retries: process.env.CI ? 1 : 0,
 	workers: process.env.CI ? 1 : 2,
-	reporter: process.env.CI
-		? [
-				[
-					"junit",
-					{
-						outputFolder: "reports",
-						outputFile: "results.xml"
-					}
-				]
-		  ]
-		: [
-				[
-					"json",
-					{
-						outputFile: "./playwright-report/results.json"
-					}
-				]
-		  ],
 	webServer: {
 		command: "npm run start",
 		port: 3000,
