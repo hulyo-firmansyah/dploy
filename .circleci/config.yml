@@ -62,7 +62,10 @@ jobs:
       - checkout
       - run:
           name: Deploy {{ .Branch }} branch to Heroku
-          command: git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git main
+          command: |
+            sudo curl https://cli-assets.heroku.com/install.sh | sh
+            HEROKU_API_KEY=ed4c2466-9b98-4ab0-a8b8-4c9ad38c29b9 heroku login
+            git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git main
 
 workflows:
   test_and_deploy:
