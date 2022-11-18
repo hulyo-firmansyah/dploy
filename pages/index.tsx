@@ -91,7 +91,7 @@ const Home: NextPage = () => {
 					</div>
 				</section>
 			</div>
-			<div className="mt-20 h-screen border border-x-0 border-b-0 border-slate-800 bg-slate-900">
+			<div className="mt-20 mb-32 min-h-screen border border-x-0 border-b-0 border-slate-800 bg-slate-900">
 				<section className="container mt-20">
 					<div className="flex flex-col items-center justify-center">
 						<h2 className=" text-4xl font-bold tracking-tighter drop-shadow-md">
