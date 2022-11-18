@@ -48,6 +48,11 @@ jobs:
             - ./.next/cache
           key: yarn-packages-v1-{{ .Branch }}-{{ checksum "yarn.lock" }}
   test:
+    docker:
+      - image: cimg/base:2022.03
+    steps:
+      - run: echo "TEST 2 Passed"
+  deploy:
     executor:
       name: node/default
       tag: '14.17.0'
@@ -55,36 +60,9 @@ jobs:
       - image: mcr.microsoft.com/playwright:v1.27.1-focal
     steps:
       - checkout
-      # look for existing cache and restore if found
-      - restore_cache:
-          key: v1-deps-{{ checksum "yarn.lock" }}
       - run:
-          name: Installing dependency
-          command: yarn install
-      - run:
-          name: Building apps
-          command: yarn build
-      # save any changes to the cache
-      - save_cache:
-          key: v1-deps-{{ checksum "yarn.lock" }}
-          paths: 
-            - node_modules   
-            - ./.next/cache
-      - run:
-          name: Run tests
-          command: yarn test
-      - store_test_results:
-          path: results.xml
-  test2:
-    docker:
-      - image: cimg/base:2022.03
-    steps:
-      - run: echo "TEST 2 Passed"
-  deploy:
-    docker:
-      - image: cimg/base:2022.03
-    steps:
-      - run: echo "Deployed"
+          name: Deploy {{ .Branch }} branch to Heroku
+          command: git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git
 
 workflows:
   test_and_deploy:
@@ -93,15 +71,9 @@ workflows:
       - test1:
           requires:
             - build
-      - test2:
+      - deploy:
           requires:
             - test1
-      # ask for approval
-      - hold:
-          type: approval
-          requires:
-            - test2
-      - deploy:
-          # wait for approval
-          requires:
-            - hold
+          filters:
+            branches:
+              only: main
