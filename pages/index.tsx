@@ -91,7 +91,7 @@ const Home: NextPage = () => {
 					</div>
 				</section>
 			</div>
-			<div className="mt-20 mb-32 min-h-screen border border-x-0 border-b-0 border-slate-800 bg-slate-900">
+			<div className="mt-20 mb-32 min-h-screen border border-x-0 border-b-0 border-slate-800 bg-slate-900 lg:mb-24 lg:min-h-[500px]">
 				<section className="container mt-20">
 					<div className="flex flex-col items-center justify-center">
 						<h2 className=" text-4xl font-bold tracking-tighter drop-shadow-md">
@@ -108,7 +108,7 @@ const Home: NextPage = () => {
 					</div>
 					<div className="mt-32 flex justify-center">
 						<div className="group group grid grid-cols-12 gap-7 lg:w-1/2">
-							<div className="ease-it relative col-span-8 flex transform-gpu items-center justify-center transition-all delay-75 duration-150 group-hover:origin-left group-hover:-translate-x-4 group-hover:rotate-[-8deg]">
+							<div className="ease-it relative col-span-6 flex transform-gpu items-center justify-center transition-all delay-75 duration-150 group-hover:origin-left group-hover:-translate-x-4 group-hover:rotate-[-8deg] lg:col-span-8">
 								<Image
 									src="https://images.unsplash.com/photo-1553531384-cc64ac80f931?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80"
 									alt="Mountain 1"
@@ -119,7 +119,7 @@ const Home: NextPage = () => {
 									className="rounded-xl"
 								/>
 							</div>
-							<div className="relative col-span-4 flex transform-gpu items-center justify-center transition-all delay-75 duration-150 ease-in group-hover:origin-bottom-right group-hover:rotate-[12deg]">
+							<div className="relative col-span-6 flex transform-gpu items-center justify-center transition-all delay-75 duration-150 ease-in group-hover:origin-bottom-right group-hover:rotate-[12deg] lg:col-span-4">
 								<Image
 									src="https://images.unsplash.com/photo-1574950578143-858c6fc58922?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
 									alt="Mountain 1"
@@ -130,36 +130,34 @@ const Home: NextPage = () => {
 									className="rounded-xl"
 								/>
 							</div>
-							<div className="ease-in-group-hover:origin-bottom-left relative col-span-4 flex transform-gpu items-center justify-center transition-all delay-75 duration-150 group-hover:rotate-[12deg]">
+							<div className="relative col-span-8 flex min-h-[200px] transform-gpu items-center justify-center transition-all delay-75 duration-150 ease-in group-hover:origin-bottom-left group-hover:rotate-[12deg] lg:col-span-4">
 								<Image
 									src="https://images.unsplash.com/photo-1549880181-56a44cf4a9a5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
 									alt="Mountain 1"
-									layout="fixed"
+									layout="fill"
 									width={400}
 									height={200}
 									objectFit={"cover"}
 									className="rounded-xl"
 								/>
 							</div>
-							<div className="ease-it relative col-span-4 flex transform-gpu items-center justify-center transition-all delay-75 duration-150 group-hover:origin-bottom-left group-hover:translate-x-6 group-hover:rotate-[5deg]">
+							<div className="ease-it relative col-span-4 flex min-h-[200px] transform-gpu items-center justify-center transition-all delay-75 duration-150 group-hover:origin-bottom-left group-hover:translate-x-6 group-hover:rotate-[5deg] lg:col-span-4">
 								<Image
 									src="https://images.unsplash.com/photo-1544198365-f5d60b6d8190?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
 									alt="Mountain 1"
-									layout="fixed"
-									width={400}
-									height={200}
+									layout="fill"
+									// width={400}
+									// height={200}
 									objectFit={"cover"}
 									className="rounded-xl"
 								/>
 							</div>
-							<div className="relative col-span-4 flex transform-gpu items-center justify-center transition-all delay-75 duration-150 ease-in group-hover:origin-top-left group-hover:translate-x-8 group-hover:translate-y-3 group-hover:rotate-[-10deg]">
+							<div className="relative col-span-12 flex min-h-[250px] transform-gpu items-center justify-center transition-all delay-75 duration-150 ease-in group-hover:origin-top-left group-hover:translate-x-8 group-hover:translate-y-3 group-hover:rotate-[-10deg] lg:col-span-4 lg:min-h-[200px]">
 								<Image
 									src="https://images.unsplash.com/photo-1573126617899-41f1dffb196c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
 									alt="Mountain 1"
-									layout="fixed"
-									width={400}
-									height={200}
-									objectFit={"cover"}
+									layout="fill"
+									objectFit="cover"
 									className="rounded-xl"
 								/>
 							</div>
