@@ -3,6 +3,7 @@
 version: 2.1
 orbs:
   node: circleci/node@5.0.3
+  heroku: circleci/heroku@2.0.0
 
 jobs:
   build:
@@ -53,19 +54,23 @@ jobs:
     steps:
       - run: echo "TEST 2 Passed"
   deploy:
-    executor:
-      name: node/default
-      tag: '14.17.0'
-    docker:
-      - image: mcr.microsoft.com/playwright:v1.27.1-focal
+    # executor:
+    #   name: node/default
+    #   tag: '14.17.0'
+    # docker:
+    #   - image: mcr.microsoft.com/playwright:v1.27.1-focal
+    # steps:
+    #   - checkout
+    #   - run:
+    #       name: Deploy {{ .Branch }} branch to Heroku
+    #       command: |
+    #         git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git main
+    executor: heroku/default
     steps:
       - checkout
-      - run:
-          name: Deploy {{ .Branch }} branch to Heroku
-          command: |
-            sudo curl https://cli-assets.heroku.com/install.sh | sh
-            HEROKU_API_KEY=ed4c2466-9b98-4ab0-a8b8-4c9ad38c29b9 heroku login
-            git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git main
+      - heroku/install
+      - heroku/deploy-via-git:
+          branch: main
 
 workflows:
   test_and_deploy:
