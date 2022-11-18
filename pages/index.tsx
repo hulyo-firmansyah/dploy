@@ -9,7 +9,6 @@ import { Product } from "../types/types"
 export const getStaticProps: GetStaticProps<{
 	products: Product[]
 }> = async () => {
-	console.log(process.env.API_BASE_URL, "env")
 	const res = await axios.get(
 		(process.env.API_BASE_URL as string) + "/products?limit=6"
 	)
