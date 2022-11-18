@@ -3,6 +3,7 @@
 version: 2.1
 orbs:
   node: circleci/node@5.0.3
+  heroku: circleci/heroku@2.0.0
 
 jobs:
   build:
@@ -48,43 +49,28 @@ jobs:
             - ./.next/cache
           key: yarn-packages-v1-{{ .Branch }}-{{ checksum "yarn.lock" }}
   test:
-    executor:
-      name: node/default
-      tag: '14.17.0'
-    docker:
-      - image: mcr.microsoft.com/playwright:v1.27.1-focal
-    steps:
-      - checkout
-      # look for existing cache and restore if found
-      - restore_cache:
-          key: v1-deps-{{ checksum "yarn.lock" }}
-      - run:
-          name: Installing dependency
-          command: yarn install
-      - run:
-          name: Building apps
-          command: yarn build
-      # save any changes to the cache
-      - save_cache:
-          key: v1-deps-{{ checksum "yarn.lock" }}
-          paths: 
-            - node_modules   
-            - ./.next/cache
-      - run:
-          name: Run tests
-          command: yarn test
-      - store_test_results:
-          path: results.xml
-  test2:
     docker:
       - image: cimg/base:2022.03
     steps:
       - run: echo "TEST 2 Passed"
   deploy:
-    docker:
-      - image: cimg/base:2022.03
+    # executor:
+    #   name: node/default
+    #   tag: '14.17.0'
+    # docker:
+    #   - image: mcr.microsoft.com/playwright:v1.27.1-focal
+    # steps:
+    #   - checkout
+    #   - run:
+    #       name: Deploy {{ .Branch }} branch to Heroku
+    #       command: |
+    #         git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git main
+    executor: heroku/default
     steps:
-      - run: echo "Deployed"
+      - checkout
+      - heroku/install
+      - heroku/deploy-via-git:
+          branch: main
 
 workflows:
   test_and_deploy:
@@ -93,15 +79,9 @@ workflows:
       - test1:
           requires:
             - build
-      - test2:
+      - deploy:
           requires:
             - test1
-      # ask for approval
-      - hold:
-          type: approval
-          requires:
-            - test2
-      - deploy:
-          # wait for approval
-          requires:
-            - hold
+          filters:
+            branches:
+              only: main
