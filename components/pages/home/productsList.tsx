@@ -26,7 +26,10 @@ ProductList.displayName = "ProductList"
 
 const ProductCard = memo((props: { product: Product }) => {
 	return (
-		<div className="col-span-4 rounded-xl bg-slate-900 p-5 shadow-md shadow-slate-700/30">
+		<div
+			className="col-span-4 rounded-xl bg-slate-900 p-5 shadow-md shadow-slate-700/30"
+			data-testid="productCard"
+		>
 			<div className="relative h-72 w-full">
 				<div className="group relative h-full w-full brightness-50 saturate-0 transition-all duration-150 ease-in hover:brightness-100 hover:saturate-100">
 					<div className="absolute inset-0 z-10 flex items-center justify-center text-white opacity-0 transition-opacity delay-75 duration-150 ease-in group-hover:opacity-100">
