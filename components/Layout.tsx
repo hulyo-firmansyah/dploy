@@ -13,7 +13,7 @@ export default function Layout({ children }: any) {
 					backgroundSize: "cover",
 					backgroundRepeat: "repeat"
 				}}
-				className="min-h-screen pb-24 shadow-md"
+				className="min-h-screen shadow-md"
 			>
 				<Navbar />
 				{children}
