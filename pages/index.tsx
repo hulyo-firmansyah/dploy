@@ -1,13 +1,42 @@
-import type { NextPage } from "next"
+import type { GetStaticProps, InferGetStaticPropsType } from "next"
 import Image from "next/image"
 import { useRouter } from "next/router"
 import { Fragment } from "react"
+import ProductList from "../components/pages/home/productsList"
+import axios from "axios"
+import { Product } from "../types/types"
 
-const Home: NextPage = () => {
+export const getStaticProps: GetStaticProps<{
+	products: Product[]
+}> = async () => {
+	console.log(process.env.API_BASE_URL, "env")
+	const res = await axios.get(
+		(process.env.API_BASE_URL as string) + "/products?limit=6"
+	)
+
+	let products: Product[] = []
+	switch (res.status) {
+		case 200: {
+			products = res.data
+		}
+	}
+
+	return {
+		props: {
+			products
+		}
+	}
+}
+
+const Home = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
 	/**
 	 * Router
 	 */
 	const router = useRouter()
+
+	/**
+	 * Effects
+	 */
 
 	return (
 		<Fragment>
@@ -91,7 +120,7 @@ const Home: NextPage = () => {
 					</div>
 				</section>
 			</div>
-			<div className="mt-20 mb-32 min-h-screen border border-x-0 border-b-0 border-slate-800 bg-slate-900 lg:mb-24 lg:min-h-[500px]">
+			<div className="mt-20 min-h-screen border border-x-0 border-b-0 border-slate-800 bg-slate-900 pt-20 pb-32 lg:min-h-[500px] lg:pb-24">
 				<section className="container mt-20">
 					<div className="flex flex-col items-center justify-center">
 						<h2 className=" text-4xl font-bold tracking-tighter drop-shadow-md">
@@ -164,6 +193,31 @@ const Home: NextPage = () => {
 						</div>
 					</div>
 				</section>
+			</div>
+			<div
+				className="relative min-h-screen border border-x-0 border-b-0 border-slate-800 bg-slate-900 bg-[-1000px] md:bg-[-500px]"
+				style={{
+					backgroundImage:
+						"url('https://images.unsplash.com/photo-1488554378835-f7acf46e6c98?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1471&q=80')",
+					backgroundSize: "3000px"
+				}}
+			>
+				<div className="inset-0 z-10 h-full w-full bg-slate-900 bg-opacity-50 pt-20 pb-32 backdrop-blur-lg backdrop-brightness-75 backdrop-contrast-150">
+					<div className="container">
+						<section>
+							<div className="flex flex-col items-center justify-center">
+								<h2 className=" text-4xl font-bold tracking-tighter drop-shadow-md">
+									Our Product
+								</h2>
+								<div className="mt-5 text-center text-lg tracking-tight text-slate-400 lg:w-1/2">
+									Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+									Accusantium quod illo, omnis consequatur optio possimus?
+								</div>
+							</div>
+							<ProductList products={props.products} />
+						</section>
+					</div>
+				</div>
 			</div>
 		</Fragment>
 	)
