@@ -2,11 +2,43 @@ import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from "next"
 import { Product } from "../../types/types"
 import axios from "axios"
 import Image from "next/image"
+import { useRouter } from "next/router"
 
 export const getStaticPaths: GetStaticPaths = async () => {
+	// When this is true (in preview environments) don't
+	// prerender any static pages
+	// (faster builds, but slower initial page load)
+	if (process.env.SKIP_BUILD_STATIC_GENERATION) {
+		return {
+			paths: [],
+			fallback: false
+		}
+	}
+
+	const res = await axios.get(
+		(process.env.API_BASE_URL as string) + "/products"
+	)
+
+	switch (res.status) {
+		case 200: {
+			const products: Product[] = res.data
+			// Get the paths we want to pre-render based on products
+			const paths = products.map(product => ({
+				params: { id: product.id.toString() }
+			}))
+			return { paths, fallback: false }
+		}
+		case 500: {
+			console.error(res.headers, "header")
+			console.error(res.data, "data")
+		}
+		default: {
+		}
+	}
+
 	return {
-		fallback: true,
-		paths: []
+		paths: [],
+		fallback: false
 	}
 }
 
@@ -24,7 +56,10 @@ export const getStaticProps: GetStaticProps<{
 				return {
 					props: {
 						product
-					}
+					},
+					// Re-generate the post at most once per second
+					// if a request comes in
+					revalidate: 1
 				}
 			}
 		}
@@ -48,6 +83,21 @@ const ProductDetail = (
 	/**
 	 * Router
 	 */
+	const router = useRouter()
+
+	/**
+	 * Effects
+	 */
+
+	if (router.isFallback) {
+		return (
+			<div className="container mt-14 pb-20">
+				<div className="flex min-h-screen items-center justify-center tracking-wide">
+					Loading ...
+				</div>
+			</div>
+		)
+	}
 
 	return (
 		<div className="container mt-14 pb-20">
