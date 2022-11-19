@@ -33,7 +33,7 @@ const ProductCard = memo((props: { product: Product }) => {
 			<div className="relative h-72 w-full">
 				<div className="group relative h-full w-full brightness-50 saturate-0 transition-all duration-150 ease-in hover:brightness-100 hover:saturate-100">
 					<div className="absolute inset-0 z-10 flex items-center justify-center text-white opacity-0 transition-opacity delay-75 duration-150 ease-in group-hover:opacity-100">
-						<Link href={"/"}>
+						<Link href={`/product/${props.product.id}`}>
 							<a className="transform-gpu rounded-full bg-slate-600 bg-opacity-50 p-4 backdrop-invert transition-all duration-150 ease-in-out hover:scale-110">
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
@@ -63,7 +63,7 @@ const ProductCard = memo((props: { product: Product }) => {
 			</div>
 			<div className="mt-7 px-3">
 				<div className="group text-base font-semibold text-slate-300">
-					<Link href={"www.google.com"}>
+					<Link href={`/product/${props.product.id}`}>
 						<a className="group-hover:underline group-hover:underline-offset-2">
 							{props.product.title}
 						</a>
