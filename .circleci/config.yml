@@ -71,15 +71,36 @@ jobs:
       - heroku/install
       - heroku/deploy-via-git:
           branch: main
-
+  deploy_to_vercel:
+    machine:
+      image: ubuntu-2004:202010-01
+      docker_layer_caching: true
+    steps:
+      - checkout
+      - run:
+          name: Deploy Main branch to Vercel
+          command: |
+            curl https://api.vercel.com/v1/integrations/deploy/prj_HUlnWqCH5JKXAbegKPMF0K1g9EgL/yPOJb31W9g
 workflows:
   test_and_deploy:
     jobs:
-      - build
+      - build:
+          filters:
+            branches:
+              only: main
       - test1:
+          filters:
+              branches:
+                only: main
           requires:
             - build
       - deploy:
+          requires:
+            - test1
+          filters:
+            branches:
+              only: main
+      - deploy_to_vercel:
           requires:
             - test1
           filters:
