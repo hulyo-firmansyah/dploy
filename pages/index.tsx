@@ -9,7 +9,6 @@ import { Product } from "../types/types"
 export const getStaticProps: GetStaticProps<{
 	products: Product[]
 }> = async () => {
-	console.log(process.env.API_BASE_URL, "env")
 	const res = await axios.get(
 		(process.env.API_BASE_URL as string) + "/products?limit=6"
 	)
@@ -74,7 +73,7 @@ const Home = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
 						<button
 							className="hidden items-center justify-center gap-3 rounded-md border border-x-0 border-b-0 border-t-slate-700 bg-slate-800 p-3 text-sm font-semibold text-slate-300 shadow-md transition-all duration-150 ease-in hover:bg-slate-700 md:flex md:w-32"
 							onClick={() => {
-								router.push("/docs")
+								router.push("/#product-list")
 							}}
 						>
 							<svg
@@ -204,7 +203,7 @@ const Home = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
 			>
 				<div className="inset-0 z-10 h-full w-full bg-slate-900 bg-opacity-50 pt-20 pb-32 backdrop-blur-lg backdrop-brightness-75 backdrop-contrast-150">
 					<div className="container">
-						<section>
+						<section id="product-list">
 							<div className="flex flex-col items-center justify-center">
 								<h2 className=" text-4xl font-bold tracking-tighter drop-shadow-md">
 									Our Product
