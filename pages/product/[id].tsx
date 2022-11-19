@@ -50,31 +50,36 @@ const ProductDetail = (
 	 */
 
 	return (
-		<div className="container mt-14">
-			<div className="flex gap-14 rounded-md bg-slate-900 p-20 shadow-md">
-				<div className="image-container relative h-96 w-96 flex-shrink-0">
+		<div className="container mt-14 pb-20">
+			<div className="gap-14 rounded-md bg-slate-900 p-5 shadow-md md:p-10 lg:flex lg:p-20">
+				<div className="image-container relative h-full w-full flex-shrink-0 lg:h-96 lg:w-96">
 					<Image
 						alt={props.product?.title}
 						src={props.product?.image ?? ""}
-						layout="fill"
+						layout="responsive"
+						width={500}
+						height={500}
 						objectFit={"cover"}
 						className="rounded-xl shadow-lg"
 					/>
 				</div>
 
 				<div className="mt-5">
-					<div className="font-semibold text-slate-400">
+					<div className="text-sm font-semibold text-slate-400 md:text-base">
 						{props.product?.category}
 					</div>
-					<div className="title mt-1 text-2xl font-bold tracking-tight">
+					<div className="title mt-1 text-lg font-semibold md:text-2xl lg:font-bold lg:tracking-tight">
 						{props.product?.title}
 					</div>
-					<div className="mt-3 flex items-center divide-x divide-slate-700">
-						<div className="price pr-5 text-lg font-bold text-slate-300">
+					<div className="mt-3 flex items-center justify-between divide-slate-700 md:justify-start md:gap-5">
+						<div className="price font-bold text-slate-300 md:text-lg">
 							<span className="text-cyan-400">$</span>
 							{props.product?.price}
 						</div>
-						<div className="flex items-center gap-1 pl-5 text-slate-400">
+						<div className="border border-y-0 border-l-0 border-white">
+							<div className="opacity-0">|</div>
+						</div>
+						<div className="flex items-center gap-1 text-slate-400">
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
 								viewBox="0 0 24 24"
@@ -94,7 +99,7 @@ const ProductDetail = (
 							<span className="">{props.product?.rating.count}</span>
 						</div>
 					</div>
-					<p className="description mt-10 text-slate-400">
+					<p className="description mt-7 text-sm text-slate-400 md:text-base lg:mt-10">
 						{props.product?.description}
 					</p>
 				</div>
