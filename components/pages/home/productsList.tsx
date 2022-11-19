@@ -62,7 +62,7 @@ const ProductCard = memo((props: { product: Product }) => {
 				</div>
 			</div>
 			<div className="mt-7 px-3">
-				<div className="group text-base font-semibold text-slate-300">
+				<div className="product-title group text-base font-semibold text-slate-300">
 					<Link href={`/product/${props.product.id}`}>
 						<a className="group-hover:underline group-hover:underline-offset-2">
 							{props.product.title}
@@ -70,7 +70,7 @@ const ProductCard = memo((props: { product: Product }) => {
 					</Link>
 				</div>
 				<div className="mt-3 flex justify-between">
-					<div className="text-base font-semibold text-slate-400">
+					<div className="product-price text-base font-semibold text-slate-400">
 						${props.product.price}
 					</div>
 					<div className="flex items-center gap-1 text-slate-400">
@@ -86,11 +86,13 @@ const ProductCard = memo((props: { product: Product }) => {
 								clipRule="evenodd"
 							/>
 						</svg>
-						<span className="font-bold text-yellow-500">
+						<span className="product-rating font-bold text-yellow-500">
 							{props.product.rating.rate}
 						</span>
 						<span> / </span>
-						<span className="">{props.product.rating.count}</span>
+						<span className="product-rating-count">
+							{props.product.rating.count}
+						</span>
 					</div>
 				</div>
 			</div>
