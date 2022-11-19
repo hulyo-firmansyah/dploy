@@ -119,7 +119,7 @@ const Home = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
 					</div>
 				</section>
 			</div>
-			<div className="mt-20 min-h-screen border border-x-0 border-b-0 border-slate-800 bg-slate-900 pt-20 pb-32 lg:min-h-[500px] lg:pb-24">
+			<div className="mt-20 min-h-screen border border-x-0 border-b-0 border-slate-800 bg-slate-900 pb-32 lg:min-h-[500px] lg:pt-20 lg:pb-24">
 				<section className="container mt-20">
 					<div className="flex flex-col items-center justify-center">
 						<h2 className=" text-4xl font-bold tracking-tighter drop-shadow-md">
