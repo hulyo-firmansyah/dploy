@@ -29,6 +29,7 @@ const ProductCard = memo((props: { product: Product }) => {
 		<div
 			className="col-span-12 rounded-xl bg-slate-900 p-5 shadow-md shadow-slate-700/30 md:col-span-6 lg:col-span-4"
 			data-testid="productCard"
+			id={props.product.title}
 		>
 			<div className="relative h-72 w-full">
 				<div className="group relative h-full w-full brightness-50 saturate-0 transition-all duration-150 ease-in hover:brightness-100 hover:saturate-100">
