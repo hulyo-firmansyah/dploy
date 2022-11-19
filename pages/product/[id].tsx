@@ -142,11 +142,13 @@ const ProductDetail = (
 									clipRule="evenodd"
 								/>
 							</svg>
-							<span className="font-bold text-yellow-500">
+							<span className="rating font-bold text-yellow-500">
 								{props.product?.rating.rate}
 							</span>
 							<span> / </span>
-							<span className="">{props.product?.rating.count}</span>
+							<span className="rating-count">
+								{props.product?.rating.count}
+							</span>
 						</div>
 					</div>
 					<p className="description mt-7 text-sm text-slate-400 md:text-base lg:mt-10">
