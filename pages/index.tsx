@@ -1,10 +1,12 @@
 import type { GetStaticProps, InferGetStaticPropsType } from "next"
 import Image from "next/image"
 import { useRouter } from "next/router"
-import { Fragment } from "react"
+import { Fragment, ReactElement } from "react"
 import ProductList from "../components/pages/home/productsList"
 import axios from "axios"
 import { Product } from "../types/types"
+import { NextPageWithLayout } from "./_app"
+import Layout from "../components/Layout"
 
 export const getStaticProps: GetStaticProps<{
 	products: Product[]
@@ -27,7 +29,9 @@ export const getStaticProps: GetStaticProps<{
 	}
 }
 
-const Home = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
+const Home: NextPageWithLayout<{ products: Product[] }> = (
+	props: InferGetStaticPropsType<typeof getStaticProps>
+) => {
 	/**
 	 * Router
 	 */
@@ -220,6 +224,9 @@ const Home = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
 			</div>
 		</Fragment>
 	)
+}
+Home.getLayout = function getLayout(page: ReactElement) {
+	return <Layout>{page}</Layout>
 }
 
 export default Home

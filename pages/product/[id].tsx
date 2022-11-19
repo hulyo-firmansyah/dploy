@@ -3,8 +3,10 @@ import { Product } from "../../types/types"
 import axios from "axios"
 import Image from "next/image"
 import { useRouter } from "next/router"
-import { Fragment } from "react"
+import { Fragment, ReactElement } from "react"
 import Head from "next/head"
+import { NextPageWithLayout } from "../_app"
+import Layout from "../../components/Layout"
 
 export const getStaticPaths: GetStaticPaths = async () => {
 	// When this is true (in preview environments) don't
@@ -79,7 +81,7 @@ export const getStaticProps: GetStaticProps<{
 	}
 }
 
-const ProductDetail = (
+const ProductDetail: NextPageWithLayout<{ product: Product }> = (
 	props: InferGetStaticPropsType<typeof getStaticProps>
 ) => {
 	/**
@@ -165,6 +167,9 @@ const ProductDetail = (
 			</div>
 		</Fragment>
 	)
+}
+ProductDetail.getLayout = function getLayout(page: ReactElement) {
+	return <Layout>{page}</Layout>
 }
 
 export default ProductDetail

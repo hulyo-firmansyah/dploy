@@ -27,6 +27,13 @@ const Navbar = () => {
 									<a>Blog</a>
 								</Link>
 							</li>
+							<li className="transition-colors duration-150 ease-in hover:text-cyan-400">
+								<Link href="/login">
+									<a className="rounded-md border border-cyan-400 px-2 py-1 text-slate-200 transition-colors duration-150 ease-in hover:bg-cyan-400 hover:text-slate-900">
+										Log In
+									</a>
+								</Link>
+							</li>
 						</ul>
 					</li>
 					<li className="pl-6 text-slate-400 transition-colors duration-150 ease-in hover:text-slate-300">

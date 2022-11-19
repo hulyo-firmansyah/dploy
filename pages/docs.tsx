@@ -1,6 +1,8 @@
-import { NextPage } from "next"
+import { ReactElement } from "react"
+import Layout from "../components/Layout"
+import { NextPageWithLayout } from "./_app"
 
-const Docs: NextPage = () => {
+const Docs: NextPageWithLayout = () => {
 	return (
 		<div className="container mt-14">
 			<div className="text-center text-5xl font-bold">
@@ -36,6 +38,9 @@ const Docs: NextPage = () => {
 			</div>
 		</div>
 	)
+}
+Docs.getLayout = function getLayout(page: ReactElement) {
+	return <Layout>{page}</Layout>
 }
 
 export default Docs
