@@ -38,7 +38,7 @@ test("Click find out button redirect properly", async ({ page }) => {
 
 	await page.locator("text=Find Out").click()
 
-	expect(page.url()).toContain("/docs")
+	expect(page.url()).toContain("/#product-list")
 
 	await page.locator("data-testid=logo-link").click()
 

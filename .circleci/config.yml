@@ -53,7 +53,7 @@ jobs:
       - image: cimg/base:2022.03
     steps:
       - run: echo "TEST 2 Passed"
-  deploy:
+  deploy_to_heroku:
     # executor:
     #   name: node/default
     #   tag: '14.17.0'
@@ -82,7 +82,7 @@ jobs:
           command: |
             curl https://api.vercel.com/v1/integrations/deploy/prj_HUlnWqCH5JKXAbegKPMF0K1g9EgL/yPOJb31W9g
 workflows:
-  test_and_deploy:
+  BUILD_TEST_DEPLOY:
     jobs:
       - build:
           filters:
@@ -94,7 +94,7 @@ workflows:
                 only: main
           requires:
             - build
-      - deploy:
+      - deploy_to_heroku:
           requires:
             - test1
           filters:
