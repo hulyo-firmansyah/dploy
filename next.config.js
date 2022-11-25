@@ -4,6 +4,9 @@ const nextConfig = {
 	swcMinify: true,
 	images: {
 		domains: ["images.unsplash.com", "fakestoreapi.com"]
+	},
+	env: {
+		API_BASE_URL: process.env.API_BASE_URL
 	}
 }
 
