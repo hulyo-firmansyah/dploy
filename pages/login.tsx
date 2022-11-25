@@ -1,6 +1,6 @@
 import Link from "next/link"
 import { useRouter } from "next/router"
-import { Fragment } from "react"
+import { ChangeEventHandler, FormEventHandler, Fragment, useState } from "react"
 
 const Login = () => {
 	/**
@@ -9,8 +9,33 @@ const Login = () => {
 	const router = useRouter()
 
 	/**
+	 * States
+	 */
+	const [credentials, setCredentials] = useState<{
+		username: string
+		password: string
+	}>({
+		username: "",
+		password: ""
+	})
+
+	/**
 	 * Effects
 	 */
+
+	/**
+	 * Handler
+	 */
+	const handleInputChange: ChangeEventHandler<HTMLInputElement> = e => {
+		setCredentials(prev => ({
+			...prev,
+			[e.target.name]: e.target.value
+		}))
+	}
+	const handleSubmit: FormEventHandler<HTMLFormElement> = async e => {
+		e.preventDefault()
+		console.log(e)
+	}
 
 	return (
 		<Fragment>
@@ -55,38 +80,47 @@ const Login = () => {
 									</svg>
 								</div>
 							</section>
-							<section className="mt-10">
-								<div className="flex flex-col">
-									<label className="mb-3 font-medium tracking-wide">
-										Username
-									</label>
-									<input
-										type={"text"}
-										className="rounded border border-slate-800 bg-transparent py-2 px-3 text-slate-300 shadow outline-none focus:border-blue-500"
-										placeholder="username / email"
-										id="username"
-									/>
-								</div>
-								<div className="mt-5 flex flex-col">
-									<label className="mb-3 font-medium tracking-wide">
-										Password
-									</label>
-									<input
-										type={"password"}
-										className="rounded border border-slate-800 bg-transparent py-2 px-3 text-slate-300 shadow outline-none focus:border-blue-500"
-										placeholder="******"
-										id="password"
-									/>
-								</div>
-							</section>
-							<section className="mt-10">
-								<button
-									className="w-full rounded border border-cyan-600 p-3 font-bold shadow transition-colors duration-150 ease-in hover:bg-cyan-600"
-									id="login"
-								>
-									Login
-								</button>
-							</section>
+							<form onSubmit={handleSubmit}>
+								<section className="mt-10">
+									<div className="flex flex-col">
+										<label className="mb-3 font-medium tracking-wide">
+											Username
+										</label>
+										<input
+											type={"text"}
+											className="rounded border border-slate-800 bg-transparent py-2 px-3 text-slate-300 shadow outline-none focus:border-blue-500"
+											placeholder="username / email"
+											id="username"
+											name="username"
+											value={credentials.username}
+											onChange={handleInputChange}
+										/>
+									</div>
+									<div className="mt-5 flex flex-col">
+										<label className="mb-3 font-medium tracking-wide">
+											Password
+										</label>
+										<input
+											type={"password"}
+											className="rounded border border-slate-800 bg-transparent py-2 px-3 text-slate-300 shadow outline-none focus:border-blue-500"
+											placeholder="******"
+											id="password"
+											name="password"
+											value={credentials.password}
+											onChange={handleInputChange}
+										/>
+									</div>
+								</section>
+								<section className="mt-10">
+									<button
+										className="w-full rounded border border-cyan-600 p-3 font-bold shadow transition-colors duration-150 ease-in hover:bg-cyan-600"
+										id="login"
+										type="submit"
+									>
+										Login
+									</button>
+								</section>
+							</form>
 						</div>
 					</main>
 				</div>
