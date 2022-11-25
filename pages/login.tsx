@@ -24,7 +24,7 @@ const Login = () => {
 				}}
 			>
 				<div className="flex justify-center">
-					<main className="mt-52 w-1/4 rounded bg-gradient-to-r from-[#7928ca] to-[#ff0080] p-[1px] shadow-md">
+					<main className="mt-52 w-full rounded bg-gradient-to-r from-[#7928ca] to-[#ff0080] p-[1px] shadow-md md:w-1/2 lg:w-1/2 xl:w-1/4">
 						<div className="rounded bg-slate-900 p-10">
 							<section className="flex items-center divide-x divide-slate-700">
 								<Link href={"/"}>
@@ -64,6 +64,7 @@ const Login = () => {
 										type={"text"}
 										className="rounded border border-slate-800 bg-transparent py-2 px-3 text-slate-300 shadow outline-none focus:border-blue-500"
 										placeholder="username / email"
+										id="username"
 									/>
 								</div>
 								<div className="mt-5 flex flex-col">
@@ -74,11 +75,15 @@ const Login = () => {
 										type={"password"}
 										className="rounded border border-slate-800 bg-transparent py-2 px-3 text-slate-300 shadow outline-none focus:border-blue-500"
 										placeholder="******"
+										id="password"
 									/>
 								</div>
 							</section>
 							<section className="mt-10">
-								<button className="w-full rounded border border-cyan-600 p-3 font-bold shadow transition-colors duration-150 ease-in hover:bg-cyan-600">
+								<button
+									className="w-full rounded border border-cyan-600 p-3 font-bold shadow transition-colors duration-150 ease-in hover:bg-cyan-600"
+									id="login"
+								>
 									Login
 								</button>
 							</section>
