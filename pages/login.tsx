@@ -1,9 +1,4 @@
-import axios, {
-	AxiosError,
-	AxiosResponse,
-	AxiosResponseHeaders,
-	RawAxiosResponseHeaders
-} from "axios"
+import axios, { AxiosError } from "axios"
 import Link from "next/link"
 import { useRouter } from "next/router"
 import { ChangeEventHandler, FormEventHandler, Fragment, useState } from "react"
@@ -50,7 +45,9 @@ const Login = () => {
 
 		try {
 			const res = await axios.post("api/login", credentials)
-			console.log(res, " res")
+			if (res.status === 200) {
+				router.replace(res.data.redirect)
+			}
 		} catch (e) {
 			if (e instanceof AxiosError) {
 				setResponseMessage({

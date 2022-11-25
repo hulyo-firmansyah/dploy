@@ -17,8 +17,7 @@ async function login(req: NextApiRequest, res: NextApiResponse) {
 			}
 			await req.session.save()
 
-			res.statusCode = 200
-			return res.json({ ok: true })
+			return res.json({ ok: true, redirect: "/secret" })
 		} catch (e) {
 			if (e instanceof AxiosError) {
 				res.statusCode = e.response?.status ?? 500
